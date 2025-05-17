@@ -4,6 +4,7 @@
     use App\Http\Controllers\Api\V1\FriendController;
     use App\Http\Controllers\Api\V1\UserController;
     use App\Http\Controllers\ProductController;
+    use App\Http\Controllers\TransporterController;
 //App\Http\Controllers\Api\V1\AuthController
     // Route::prefix('v1') -> group(function () {
     //     Route :: post('/register', [AuthController :: class, 'register']);
@@ -41,21 +42,38 @@
     Route::delete('/user/delete/{id}', [AuthController::class, 'deleteUser']);
 
     //PRODUCT==========================
-    Route::post('/product/add', [ProductController::class, 'addProduct']);
-    //view
-    Route::get('/product/view/{id}', [ProductController::class, 'show']);
-    Route::get('/product/index', [ProductController::class, 'index']);
-    //update
-    Route::put('/product/update/{id}', [ProductController::class, 'update']);
-    //delete
-    Route::delete('/product/delete/{id}', [ProductController::class, 'delete']);
+    Route::prefix('product')->group(function () {
+        Route::post('/add', [ProductController::class, 'addProduct']);
+        //view
+        Route::get('/view/{id}', [ProductController::class, 'show']);
+        Route::get('/index', [ProductController::class, 'index']);
+        //update
+        Route::put('/update/{id}', [ProductController::class, 'update']);
+        //delete
+        Route::delete('/delete/{id}', [ProductController::class, 'delete']);
+    });
+
+    //Transporter==========================
+
+    Route::prefix('transporter')->group(function () {
+        Route::post('/add', [TransporterController::class, 'add']);
+        //view
+
+        //TODO: implement show method in TransporterController
+        // Route::get('/view/{id}', [TransporterController::class, 'show']);
+        // Route::get('/index', [TransporterController::class, 'index']);
+        // //update
+        // Route::put('/update/{id}', [TransporterController::class, 'update']);
+        // //delete
+        // Route::delete('/delete/{id}', [TransporterController::class, 'delete']);
+    });
 
 
     Route::middleware('auth:api')->group(function () {
         Route::get('/profile', [UserController::class, 'getProfile']);
 
         //product
-        // Route::post('/product/add', [ProductController::class, 'addProduct']);
+        // Route::post('/add', [ProductController::class, 'addProduct']);
     });
 
  });

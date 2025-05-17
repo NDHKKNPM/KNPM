@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id();
+            $table->id(); // Product ID
             $table->string('title');
             $table->string('slug');
             $table->string('photo')->nullable();
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('summary')->nullable();
             $table->integer('price');
-            $table->integer('cat_id');
+            $table->integer('cat_id')->default(0);
             $table->timestamps();
         });
     }
